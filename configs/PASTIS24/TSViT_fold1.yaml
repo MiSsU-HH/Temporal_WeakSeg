@@ -1,0 +1,106 @@
+MODEL:
+  architecture:  "TSViT"
+  img_res: 24
+  max_seq_len: 60
+  num_channels: 11
+  num_features: 16
+  num_classes: 19
+  ignore_background: False
+  dropout: 0.
+  patch_size: 2
+  dim: 128
+  temporal_depth: 4
+  spatial_depth: 4
+  heads: 4
+  pool: 'cls'
+  dim_head: 32
+  emb_dropout: 0.
+  scale_dim: 4
+  ignore_label: 255
+
+DATASETS:
+  train:
+    dataset: "PASTIS24_fold1"
+    label_map:
+    max_seq_len: 60
+    batch_size: 64
+    extra_data:
+    num_workers: 4
+    pseudo: True
+
+  eval:
+    dataset: "PASTIS24_fold1"
+    label_map:
+    max_seq_len: 60
+    batch_size: 24
+    extra_data:
+    num_workers: 4
+
+  test:
+    dataset: "PASTIS24_fold1"
+    label_map:
+    max_seq_len: 60
+    batch_size: 24
+    extra_data:
+    num_workers: 32
+
+SOLVER:
+  num_epochs: 30
+  num_warmup_epochs: 5
+  steps: (0, 80000)
+  loss_function:  masked_cross_entropy
+  class_weights:
+  lr_scheduler: 'cosine'
+  lr_base: 1e-4
+  lr_min: 5e-6
+  lr_start: 1e-5
+  num_cycles: 1
+  reset_lr: True   # resets lr to base value when loading pretrained model
+  weight_decay: 0.000
+
+CHECKPOINT:
+  load_from_checkpoint:
+  partial_restore: False
+  save_path: 'models/saved_models/PASTIS24/TSViT_fold1_0423_patch2_9000_binarylinear'
+  train_metrics_steps: 250
+  eval_steps: 2000
+  save_steps: 20000000000
+
+
+# fully surpervise
+# Mean (micro) Evaluation metrics (micro/macro), loss: 0.4954022, iou: 0.7122/0.6435, accuracy: 0.8319/0.7571, precision: 0.8319/0.7853
+# recall: 0.8319/0.7571, F1: 0.8319/0.7693, unique pred labels: [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18]
+
+# 0325_-2_all_1d0_4d7_pseudo
+# Mean (micro) Evaluation metrics (micro/macro), loss: 1.2243809, iou: 0.5788/0.4945, accuracy: 0.7332/0.6228, precision: 0.7332/0.6966
+# recall: 0.7332/0.6228, F1: 0.7332/0.6454, unique pred labels: [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18]
+
+# 0402_patch2 0.5 5.5 12000
+# Mean (micro) Evaluation metrics (micro/macro), loss: 1.0085599, iou: 0.5919/0.5264, accuracy: 0.7436/0.6745, precision: 0.7436/0.6877
+# recall: 0.7436/0.6745, F1: 0.7436/0.6758, unique pred labels: [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18]
+
+# 0402_patch2 3.0 9000
+# Mean (micro) Evaluation metrics (micro/macro), loss: 0.7487636, iou: 0.6506/0.5751, accuracy: 0.7883/0.6908, precision: 0.7883/0.7615
+# recall: 0.7883/0.6908, F1: 0.7883/0.7122, unique pred labels: [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18] 
+
+# 0402_patch2 edge3 9000
+# Mean (micro) Evaluation metrics (micro/macro), loss: 0.9957280, iou: 0.6246/0.5165, accuracy: 0.7690/0.6070, precision: 0.7690/0.7710
+# recall: 0.7690/0.6070, F1: 0.7690/0.6564, unique pred labels: [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18]
+
+# 0402_patch2 newedge3 9000
+# Mean (micro) Evaluation metrics (micro/macro), loss: 0.8685318, iou: 0.6465/0.5608, accuracy: 0.7853/0.6713, precision: 0.7853/0.7629
+# recall: 0.7853/0.6713, F1: 0.7853/0.6977, unique pred labels: [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18] 
+
+# 3p5_2p5
+# Mean (micro) Evaluation metrics (micro/macro), loss: 0.7891545, iou: 0.6486/│········································································
+# 0.5701, accuracy: 0.7869/0.6852, precision: 0.7869/0.7655, recall: 0.7869/0.│····································································
+# 6852, F1: 0.7869/0.7083, unique pred labels: [ 0  1  2  3  4  5  6  7  8  9 │········································································
+# 10 11 12 13 14 15 16 17 18] 
+
+# TSViT_fold1_0407_patch2_newedge3_9000_1e-3
+# Mean (micro) Evaluation metrics (micro/macro), loss: 1.0257635, iou: 0.6463/0.5552, accuracy: 0.7852/0.6584, precision: 0.7852/0.7735, r
+# ecall: 0.7852/0.6584, F1: 0.7852/0.6909, unique pred labels: [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18] 
+
+# 0402_patch2 8000
+# Mean (micro) Evaluation metrics (micro/macro), loss: 0.8348883, iou: 0.6300/0.5503, accuracy: 0.7730/0.6647, precision: 0.7730/0.7[135/1172]0.9379, batch F1: 0.9379, lr: 0.0001000
+# l: 0.7730/0.6647, F1: 0.7730/0.6890, unique pred labels: [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18] 

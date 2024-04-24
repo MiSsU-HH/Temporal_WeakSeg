@@ -1,0 +1,69 @@
+MODEL:
+  architecture:  "TSViTcls"
+  img_res: 24
+  max_seq_len: 60  #
+  num_channels: 11
+  num_features: 16
+  num_classes: 18
+  ignore_background: True
+  dropout: 0.
+  patch_size: 2
+  dim: 128
+  temporal_depth: 8
+  spatial_depth: 4
+  heads: 4
+  pool: 'cls'
+  dim_head: 64
+  emb_dropout: 0.
+  scale_dim: 4
+  return_att: True
+
+DATASETS:
+  train:
+    dataset: 'PASTIS24_cls'
+    label_map:
+    max_seq_len: 60
+    batch_size: 48
+    extra_data:
+    num_workers: 4
+
+  eval:
+    dataset: 'PASTIS24_cls'
+    label_map:
+    max_seq_len: 60
+    batch_size: 64
+    extra_data:
+    num_workers: 4
+    return_paths: True
+
+SOLVER:
+  num_epochs: 20
+  num_warmup_epochs: 3
+  steps: (0, 80000)
+  loss_function: focal_loss
+  class_weights:
+  lr_scheduler: 'cosine'
+  lr_base: 1e-3
+  lr_min: 5e-6
+  lr_start: 5e-6
+  num_cycles: 1
+  reset_lr: True   # resets lr to base value when loading pretrained model
+  weight_decay: 0.00
+  gamma: 1.0
+  alpha:
+
+CHECKPOINT:
+  load_from_checkpoint: "models/saved_models/PASTIS24/TSViTcls_gpu8_patch2_0402/9000.pth"
+  partial_restore: False
+  save_path: 'models/saved_models/PASTIS24/TSViTcls_gpu8_patch2_0422_noclasstoken'
+  train_metrics_steps: 100
+  eval_steps: 1000
+  save_steps: 1000000
+
+
+# patch 2
+# mAP_macro: 80.03427671721073   mAP_micro: 90.35626876998467   AP_class0: 93.49252447341499   AP_class1: 93.91927200347656   AP_class2│·······
+# : 96.29014209622119   AP_class3: 91.43782000882203   AP_class4: 89.80142997073253   AP_class5: 75.67248791451667   AP_class6: 89.7019│·······
+# 7606819806   AP_class7: 90.4694513442474   AP_class8: 93.56277565735765   AP_class9: 73.62830762589945   AP_class10: 77.7465707115492│·······
+# 7   AP_class11: 63.32342682748696   AP_class12: 82.93904139576142   AP_class13: 69.05525560052949   AP_class14: 92.43409535264733   A│·······
+# P_class15: 65.05352326943347   AP_class16: 50.46729390096972   AP_class17: 51.62158668852892

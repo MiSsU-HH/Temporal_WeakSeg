@@ -1,0 +1,47 @@
+MTLCC:
+    basedir: "..."
+    paths_train: ".../240pkl/train_paths.csv"
+    paths_eval: ".../240pkl/eval_paths.csv"
+
+T31TFM_1618:
+    basedir: "..."
+    paths_train: ".../train_paths.csv"
+    paths_eval: ".../eval_paths.csv"
+
+# PASTIS24 benchmark -------------------------------------------------------------------------------------------------
+PASTIS24_cls:
+    basedir: "/data/zhuyan/dataset/PASTIS24"
+    paths_train: "/data/zhuyan/dataset/PASTIS24/fold-paths/folds_1_123_paths.csv"
+    paths_eval: "/data/zhuyan/dataset/PASTIS24/fold-paths/folds_1_123_paths.csv"
+    paths_test: "/data/zhuyan/dataset/PASTIS24/fold-paths/fold_5_paths.csv"
+
+PASTIS24_fold1:
+    basedir: "/data/zhuyan/dataset/PASTIS24"
+    paths_train: "/data/zhuyan/dataset/PASTIS24/fold-paths/folds_1_123_paths.csv"
+    paths_eval: "/data/zhuyan/dataset/PASTIS24/fold-paths/fold_4_paths.csv"
+    paths_test: "/data/zhuyan/dataset/PASTIS24/fold-paths/fold_5_paths.csv"
+
+PASTIS24_fold2:
+    basedir: "/data/zhuyan/dataset/PASTIS24"
+    paths_train: "/data/zhuyan/dataset/PASTIS24/fold-paths/folds_2_234_paths.csv"
+    paths_eval: "/data/zhuyan/dataset/PASTIS24/fold-paths/fold_5_paths.csv"
+    paths_test: "/data/zhuyan/dataset/PASTIS24/fold-paths/fold_1_paths.csv"
+
+PASTIS24_fold3:
+    basedir: "/data/zhuyan/dataset/PASTIS24"
+    paths_train: "/data/zhuyan/dataset/PASTIS24/fold-paths/folds_3_345_paths.csv"
+    paths_eval: "/data/zhuyan/dataset/PASTIS24/fold-paths/fold_1_paths.csv"
+    paths_test: "/data/zhuyan/dataset/PASTIS24/fold-paths/fold_2_paths.csv"
+
+PASTIS24_fold4:
+    basedir: "/data/zhuyan/dataset/PASTIS24"
+    paths_train: "/data/zhuyan/dataset/PASTIS24/fold-paths/folds_4_451_paths.csv"
+    paths_eval: "/data/zhuyan/dataset/PASTIS24/fold-paths/fold_2_paths.csv"
+    paths_test: "/data/zhuyan/dataset/PASTIS24/fold-paths/fold_3_paths.csv"
+
+PASTIS24_fold5:
+    basedir: "/data/zhuyan/dataset/PASTIS24"
+    paths_train: "/data/zhuyan/dataset/PASTIS24/fold-paths/folds_5_512_paths.csv"
+    paths_eval: "/data/zhuyan/dataset/PASTIS24/fold-paths/fold_3_paths.csv"
+    paths_test: "/data/zhuyan/dataset/PASTIS24/fold-paths/fold_4_paths.csv"
+# ------------------------------------------------------------------------------------------------------------------
