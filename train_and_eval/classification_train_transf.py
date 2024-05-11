@@ -65,17 +65,17 @@ def train_and_evaluate(net, dataloaders, config, device, lin_cls=False, generate
                 unique_num = unique_nums[j]
                 if unique_value!=0 and unique_num>semantic_label.shape[1]*semantic_label.shape[2]*0.01:
                     ground_truth[i,unique_value-1] = 1
-        # x_cls_logits, x_patch_logits = net(sample['inputs'].to(torch.float32).to(device))
-        x_patch_logits = net(sample['inputs'].to(torch.float32).to(device))
+        x_cls_logits, x_patch_logits = net(sample['inputs'].to(torch.float32).to(device))
+        # x_patch_logits = net(sample['inputs'].to(torch.float32).to(device))
         
-        # loss_cls = F.multilabel_soft_margin_loss(x_cls_logits, ground_truth)
+        loss_cls = F.multilabel_soft_margin_loss(x_cls_logits, ground_truth)
         loss_patch = F.multilabel_soft_margin_loss(x_patch_logits, ground_truth)
-        # loss = loss_cls + loss_patch
-        loss = loss_patch * 2
+        loss = loss_cls + loss_patch
+        # loss = loss_patch * 2
         loss.backward()
         optimizer.step()
-        return 0, loss_patch, loss
-        # return loss_cls, loss_patch, loss
+        # return 0, loss_patch, loss
+        return loss_cls, loss_patch, loss
 
     def evaluate(net, evalloader, loss_fn, config):
         num_classes = config['MODEL']['num_classes']
@@ -86,10 +86,10 @@ def train_and_evaluate(net, dataloaders, config, device, lin_cls=False, generate
         with torch.no_grad():
             for step, sample in tqdm(enumerate(evalloader), total=len(evalloader)):
 
-                # logits, x_patch_logits = net(sample['inputs'].to(torch.float32).to(device))
-                x_patch_logits = net(sample['inputs'].to(torch.float32).to(device))
-                # predicted = torch.sigmoid(logits).cpu().numpy()
-                predicted = torch.sigmoid(x_patch_logits).cpu().numpy()
+                logits, x_patch_logits = net(sample['inputs'].to(torch.float32).to(device))
+                # x_patch_logits = net(sample['inputs'].to(torch.float32).to(device))
+                predicted = torch.sigmoid(logits).cpu().numpy()
+                # predicted = torch.sigmoid(x_patch_logits).cpu().numpy()
                 predicted_all.append(predicted)
                 semantic_label = sample['labels'].to(torch.int64).cpu().numpy()
                 semantic_label[semantic_label==num_classes+1] = 0
